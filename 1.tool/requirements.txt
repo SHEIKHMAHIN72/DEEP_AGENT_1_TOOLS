@@ -1,0 +1,12 @@
+# Python 3.12 recommended
+
+langchain>=1.0,<2.0
+langgraph>=1.0,<2.0
+
+deepagents>=0.6,<0.7
+
+langchain-google-genai>=4.3,<5.0
+
+#langsmith>=0.4,<1.0
+
+#pydantic>=2.0,<3.0
