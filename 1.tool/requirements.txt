@@ -7,6 +7,9 @@ deepagents>=0.6,<0.7
 
 langchain-google-genai>=4.3,<5.0
 
+tavily-python
+langchain-tavily
+
 #langsmith>=0.4,<1.0
 
 #pydantic>=2.0,<3.0
