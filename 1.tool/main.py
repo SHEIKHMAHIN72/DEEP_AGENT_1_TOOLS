@@ -4,13 +4,12 @@ from dotenv import load_dotenv
 from deepagents import create_deep_agent
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.tools import tool
+from langchain_tavily import TavilySearch
 
 load_dotenv()
 
 
-# ============================================================
 # TOOL 1: Save Research Note
-# ============================================================
 
 @tool
 def save_research_note(title: str, content: str) -> str:
@@ -52,9 +51,7 @@ def save_research_note(title: str, content: str) -> str:
     return f"Research note saved successfully at: {file_path}"
 
 
-# ============================================================
 # TOOL 2: Calculate Percentage Change
-# ============================================================
 
 @tool
 def calculate_percentage_change(
@@ -74,10 +71,12 @@ def calculate_percentage_change(
 
     return round(percentage_change, 2)
 
+# TOOL 3: Tavily Search
 
-# ============================================================
+tavily_search = TavilySearch(
+    max_results=5
+)
 # GEMINI 2.5 FLASH
-# ============================================================
 
 model = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
@@ -85,9 +84,7 @@ model = ChatGoogleGenerativeAI(
 )
 
 
-# ============================================================
 # CREATE DEEP AGENT
-# ============================================================
 
 agent = create_deep_agent(
     model=model,
@@ -96,6 +93,7 @@ agent = create_deep_agent(
     tools=[
         save_research_note,
         calculate_percentage_change,
+        tavily_search
     ],
 
     # Built-in/prebuilt tools
@@ -106,7 +104,8 @@ You are a helpful research assistant.
 You have access to:
 1. save_research_note - save research as a Markdown file.
 2. calculate_percentage_change - calculate percentage changes.
-3. Python execution - use Python when computation or code
+3. tavily_search - search the web for information.
+4. Python execution - use Python when computation or code
    execution is useful.
 
 Use tools when they are appropriate instead of trying to
@@ -115,9 +114,7 @@ perform complex calculations manually.
 )
 
 
-# ============================================================
 # TERMINAL CHATBOT
-# ============================================================
 
 print("🤖 Small Chatbot")
 print("Type 'exit' to quit.\n")
